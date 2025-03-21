@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator & Guess Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #game, #calculator { display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to My Web App</h1>
+    <div id="menu">
+        <button onclick="showCalculator()">Go to Calculator</button>
+        <button onclick="showGame()">Go to Game</button>
+    </div>
+
+    <!-- Calculator Section -->
+    <div id="calculator">
+        <h2>Calculator</h2>
+        <input type="number" id="num1" placeholder="Enter first number">
+        <input type="number" id="num2" placeholder="Enter second number">
+        <select id="operation">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <button onclick="calculate()">Calculate</button>
+        <p id="calcResult"></p>
+        <button onclick="goBack()">Back to Menu</button>
+    </div>
+
+    <!-- Guessing Game Section -->
+    <div id="game">
+        <h2>Guess the Number (1-100)</h2>
+        <p>Try to guess the secret number!</p>
+        <input type="number" id="guess" placeholder="Enter a number">
+        <button onclick="checkGuess()">Submit</button>
+        <p id="gameResult"></p>
+        <button onclick="goBack()">Back to Menu</button>
+    </div>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+
+        function showCalculator() {
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("calculator").style.display = "block";
+        }
+
+        function showGame() {
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("game").style.display = "block";
+        }
+
+        function goBack() {
+            document.getElementById("menu").style.display = "block";
+            document.getElementById("calculator").style.display = "none";
+            document.getElementById("game").style.display = "none";
+        }
+
+        function calculate() {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let operation = document.getElementById("operation").value;
+            let result;
+
+            if (operation === "+") result = num1 + num2;
+            else if (operation === "-") result = num1 - num2;
+            else if (operation === "*") result = num1 * num2;
+            else if (operation === "/") result = num1 / num2;
+            else if (operation === "%") result = num1 % num2;
+
+            document.getElementById("calcResult").innerText = "Result: " + result;
+        }
+
+        function checkGuess() {
+            let guess = parseInt(document.getElementById("guess").value);
+            let message = "";
+
+            if (guess < secretNumber) message = "Too Low!";
+            else if (guess > secretNumber) message = "Too High!";
+            else message = "🎉 Correct! You Win! 🎉";
+
+            document.getElementById("gameResult").innerText = message;
+        }
+    </script>
+
+</body>
+</html>
